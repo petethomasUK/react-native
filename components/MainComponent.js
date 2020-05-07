@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import Menu from './MenuComponent';
-import { DISHES } from '../shared/dishes';
 import DishDetail from './DishDetailComponent';
-import { View } from 'react-native';
+import Contact from './ContactComponent';
 import Home from './HomeComponent';
 import {createStackNavigator} from 'react-navigation-stack';
 import { createDrawerNavigator } from 'react-navigation-drawer';
@@ -11,7 +10,7 @@ import {createAppContainer} from 'react-navigation';
 const HomeNavigator = createStackNavigator({
   Home: { screen: Home }
 }, {
-  navigationOptions: ({ navigation }) => ({
+  navigationOptions: () => ({
     headerStyle: {
         backgroundColor: "#512DA8"
     },
@@ -40,6 +39,40 @@ const MenuNavigator = createStackNavigator({
 }
 );
 
+const ContactNavigator = createStackNavigator({
+  Contact: { screen: Contact }
+},
+{
+  initialRouteName: 'Contact',
+  navigationOptions: {
+      headerStyle: {
+          backgroundColor: "#512DA8",
+          textAlign: 'center',
+          alignSelf: 'center',
+      },
+      headerTitleAlign: 'center',
+      headerLayoutPreset: 'center',
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+          color: "#fff"            
+      }
+  },
+  defaultNavigationOptions: {
+    headerStyle: {
+        backgroundColor: "#512DA8",
+        textAlign: 'center',
+        alignSelf: 'center',
+    },
+    headerTitleAlign: 'center',
+    headerLayoutPreset: 'center',
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+        color: "#fff"            
+    }
+}
+}
+);
+
 const MainNavigator = createDrawerNavigator({
   Home: 
     { screen: HomeNavigator,
@@ -54,9 +87,17 @@ const MainNavigator = createDrawerNavigator({
         title: 'Menu',
         drawerLabel: 'Menu'
       }, 
-    }
-}, {
-drawerBackgroundColor: '#D1C4E9'
+    },
+    Contact: 
+      { screen: ContactNavigator,
+        navigationOptions: {
+          title: 'Contact',
+          drawerLabel: 'Contact'
+        }, 
+      }
+  }, 
+  {
+    drawerBackgroundColor: '#D1C4E9'
 });
 
 
@@ -67,15 +108,6 @@ const App = createAppContainer(MainNavigator);
 class Main extends Component {
     constructor(props){
       super(props);
-
-      this.state = {
-        dishes: DISHES,
-        selectedDish: null
-      }
-    }
-
-    onDishSelect(dishId) {
-      this.setState({selectedDish: dishId});
     }
 
     render() {
